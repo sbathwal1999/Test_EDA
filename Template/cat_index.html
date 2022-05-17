@@ -1,0 +1,2089 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script src="https://cdn.plot.ly/plotly-2.11.1.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    
+    
+    <style>
+
+@font-face {
+  font-family: "Poppins";
+  src: url("'https://fonts.googleapis.com/css2?family=Poppins:wght@300&display=swap'");
+}
+
+.bg-container {
+  margin: 0;
+}
+
+.rp-table {
+  border-collapse: collapse;
+  font-size: 13px;
+  table-layout: auto;
+  width: 100%;
+  color: #212f3c;
+  font-weight: 600;
+}
+
+.rp-table tr {
+  background: none !important;
+  height: 31px;
+}
+
+.id-anchor {
+  position: relative;
+  bottom: 70px;
+  display: block;
+  visibility: hidden;
+}
+
+.container-main {
+  margin-top: 60px;
+  margin-left: 1%;
+  margin-right: 1%;
+}
+
+.footer {
+  font-family: sans-serif;
+}
+
+.footer p {
+  text-align: center;
+}
+
+.navbar-top {
+  font-family: -apple-system, "Helvetica Neue", "Helvetica", "Arial",
+    "Lucida Grande", sans-serif;
+  -webkit-font-smooth: antialiased;
+  position: sticky;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background-color: #17202a;
+  z-index: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.navbar-top span {
+  font-weight: bold;
+  border: 1px solid #cccccc;
+  border-radius: 5px;
+  padding: 5px;
+}
+
+.navbar-top a {
+  flex: 0 1 auto;
+  color: #f2f2f2;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+
+.navbar-top a:hover {
+  background-color: #212f3c;
+}
+
+.sort-title {
+  font-weight: bold;
+}
+
+.subcontent {
+  display: none;
+  position: absolute;
+  top: 46px;
+  background-color: #17202a;
+  z-index: 1;
+  max-height: 400px;
+  overflow: scroll;
+}
+
+.subcontent a {
+  display: block;
+  float: none;
+  font-size: 13px;
+  text-align: left;
+  padding: 6px 16px;
+  min-width: 78px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.subnav {
+  overflow: hidden;
+  flex: 0 1 auto;
+  padding: 14px 10px;
+}
+
+.subnav:hover .subcontent {
+  display: block;
+}
+
+.tb-title {
+  font-family: -apple-system, "Helvetica Neue", "Helvetica", "Arial",
+    "Lucida Grande", sans-serif;
+  -webkit-font-smooth: antialiased;
+  color: black;
+}
+
+h1.tb-title {
+  max-width: 1200px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 10px;
+}
+
+h2.tb-title {
+  font-size: 1em;
+  margin-bottom: 0;
+  max-width: 150px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  margin-left: 11px;
+  padding-bottom: 1px;
+}
+
+h2.tb-title:hover {
+  overflow: visible;
+  word-break: break-word;
+  white-space: normal;
+}
+
+h3.tb-title {
+  text-align: center;
+}
+
+h4.tb-title {
+  text-align: center;
+}
+
+.section {
+  font-family: -apple-system, "Helvetica Neue", "Helvetica", "Arial",
+    "Lucida Grande", sans-serif;
+  -webkit-font-smoothing: antialiased;
+  padding: 1px;
+  background-color: white;
+  border-radius: 10px;
+  box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12),
+    0 3px 1px -2px rgba(0, 0, 0, 0.2);
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 70px;
+  max-width: 1320px;
+}
+
+.section-sort {
+  font-family: sans-serif;
+  margin-top: 20px;
+  margin-left: 30px;
+}
+
+.section-variable p {
+  font-family: sans-serif;
+  margin-top: 0;
+  font-size: 0.8em;
+  margin-left: 11px;
+}
+
+.section-variable {
+  border-bottom: 1px solid #beb7b6;
+}
+
+.section-variable:last-child {
+  border-bottom: 0;
+}
+
+.ov-container {
+  display: flex;
+  justify-content: space-around;
+}
+
+.page-box {
+  display: none;
+}
+
+.page-box table {
+  border-collapse: collapse;
+  font-size: 13px;
+  table-layout: auto;
+  width: 100%;
+  color: #212f3c;
+}
+
+.page-box tr {
+  background: none !important;
+}
+
+.page-box table th {
+  border-bottom: 1px solid #cccccc;
+  text-align: left;
+  padding: 0.5em 0.5em !important;
+}
+
+.page-box:first-of-type {
+  display: block;
+}
+
+.col-name {
+  font-family: Menlo, Monaco, Consolas, "Courier New", monospace;
+  font-size: 85%;
+  background-color: #f9f2f4;
+  border: 1px solid #5dade2;
+  border-radius: 4px;
+  padding: 0 4px;
+  display: inline-block;
+  max-width: 200px;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+  vertical-align: middle;
+  color: #000000;
+  transition: all 0.5s ease-out;
+}
+
+.col-name:hover {
+  overflow-wrap: break-word;
+  white-space: normal;
+}
+
+.ov-container .tb-container {
+  margin: 10px;
+  flex: 1 1 50%;
+  width: 50%;
+}
+
+.var-container {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  margin: 0 20px;
+}
+
+.var-container > .var-title {
+  flex: 0 1 180px;
+}
+
+.var-container > .tb-container {
+  flex: 0 1 770px;
+}
+
+.var-container > .var-ovplot {
+  display: flex;
+  align-items: flex-end;
+  flex-flow: column nowrap;
+}
+
+.tb-container > .tb-numerical {
+  columns: 2;
+}
+
+.var-plot {
+  display: none;
+  margin-bottom: 10px;
+  animation: slide-down 0.3s ease-out;
+}
+
+.ins-type {
+  font-weight: 700;
+  font-size: 85%;
+  letter-spacing: -0.5px;
+  color: #fff;
+  background-color: #5dade2;
+  border-radius: 4px;
+  padding: 2px 4px;
+}
+
+.page-switch-box {
+  max-width: 13em;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.page-switch::-webkit-scrollbar {
+  width: 5px;
+}
+
+.page-switch::-webkit-scrollbar-thumb {
+  background-color: #5dade2;
+  border-radius: 5px;
+}
+
+.page-switch::-webkit-scrollbar-track {
+  background: #b5d6ea;
+}
+
+.page-switch {
+  list-style: none;
+  display: flex;
+  justify-content: flex-start;
+  overflow: auto;
+  padding: 0 !important;
+}
+
+.page-switch li {
+  flex: 0 1 auto;
+  text-align: center;
+  text-decoration: none;
+  font-size: 10px;
+  font-family: -apple-system, "Helvetica Neue", "Helvetica", "Arial",
+    "Lucida Grande", sans-serif;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  color: #141212;
+  cursor: pointer;
+  background-color: white;
+  border: 1px solid #b5d6ea;
+  border-radius: 3px;
+  padding: 5px 10px;
+  list-style: none;
+}
+
+.page-switch li:first-of-type {
+  background-color: #5dade2;
+}
+
+@keyframes slide-down {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.vp-switch {
+  font-weight: 400;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.vp-switch input:checked + label {
+  background-color: #b5d6ea;
+}
+
+.vp-switch label {
+  cursor: pointer;
+  border: 1px solid #b5d6ea;
+  text-align: center;
+  width: 130px;
+  padding: 5px 10px;
+}
+
+.vp-switch label:hover {
+  background-color: #e6e8ed;
+}
+
+.vp-switch label:first-of-type {
+  border-radius: 5px 0 0 5px;
+}
+
+.vp-switch label:last-of-type {
+  border-radius: 0 5px 5px 0;
+}
+
+.vp-switch input {
+  display: none;
+}
+
+.vp-table {
+  display: flex;
+  margin: 0 1em;
+}
+
+.stats-table {
+  flex: 1 1 40%;
+  margin: 10px;
+}
+
+.plot-tabs {
+  margin: 10px;
+}
+
+.insight-container-column {
+  width: 255px;
+  height: 0;
+  position: relative;
+  top: 10px;
+  right: 5px;
+}
+
+.insight-container-column-wide {
+  left: 44px;
+  width: 405px;
+  height: 0;
+  position: relative;
+  top: 10px;
+}
+
+.insight-btn-column {
+  filter: invert(73%) sepia(44%) saturate(243%) hue-rotate(181deg)
+    brightness(87%) contrast(87%);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' fill='currentColor' class='exclamation-circle w-6 h-6'%3E%3Cpath fill-rule='evenodd' d='M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z' clip-rule='evenodd'%3E%3C/path%3E%3C/svg%3E");
+  background-size: 20px;
+  background-repeat: no-repeat;
+  width: 20px;
+  height: 20px;
+  opacity: 0.5;
+  cursor: pointer;
+  display: block;
+  position: relative;
+  left: 237px;
+  bottom: 5px;
+  margin: 0;
+  z-index: 1;
+}
+
+.insight-btn-column-wide {
+  filter: invert(73%) sepia(44%) saturate(243%) hue-rotate(181deg)
+    brightness(87%) contrast(87%);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' fill='currentColor' class='exclamation-circle w-6 h-6'%3E%3Cpath fill-rule='evenodd' d='M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z' clip-rule='evenodd'%3E%3C/path%3E%3C/svg%3E");
+  background-size: 20px;
+  background-repeat: no-repeat;
+  width: 20px;
+  height: 20px;
+  opacity: 0.5;
+  cursor: pointer;
+  display: block;
+  position: relative;
+  left: 387px;
+  bottom: 5px;
+  margin: 0;
+  z-index: 1;
+}
+
+.insight-btn-column-wide:hover {
+  opacity: 1;
+}
+
+.insight-check-column-wide:checked ~ .insight-btn-column-wide {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' fill='currentColor' class='x-circle w-6 h-6'%3E%3Cpath fill-rule='evenodd' d='M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z' clip-rule='evenodd'%3E%3C/path%3E%3C/svg%3E");
+}
+
+.insight-panel-column {
+  position: inherit;
+  color: #141212;
+  opacity: 0;
+  border: 1px solid #444444;
+  background-color: #212121;
+  transition: all 0.2s ease;
+  border-radius: 5px;
+  max-height: 320px;
+  overflow: auto;
+  z-index: 999;
+  box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12),
+    0 3px 1px -2px rgba(0, 0, 0, 0.2);
+}
+
+.insight-check-column:checked ~ .insight-panel-column {
+  opacity: 0.9;
+  z-index: 1;
+}
+
+.insight-panel-column ul {
+  padding: 0 1em !important;
+  margin: 1em 0 !important;
+  list-style: none;
+}
+
+.insight-panel-column .entry-column {
+  color: #fff;
+  font-weight: 500;
+  font-size: 12px;
+  margin: 5px 0;
+  hyphens: auto;
+}
+
+.vp-plot {
+  display: none;
+  margin: auto;
+  width: 500px;
+  justify-content: center;
+  align-items: flex-end;
+  flex-flow: column nowrap;
+}
+
+.var-toggle {
+  background-color: white;
+  border: 1px solid #b5d6ea;
+  border-radius: 5px;
+  padding: 5px 10px;
+  text-align: center;
+  text-decoration: none;
+  font-size: 12px;
+  width: 100px;
+}
+
+.var-toggle:hover {
+  background-color: #5dade2;
+}
+
+.interac-container {
+  margin: 20px;
+}
+
+.interac-container > div > div > div > div > div label {
+  font-size: 14px !important;
+  font-family: monospace !important;
+  border: 0 !important;
+}
+
+.interac-container > div > div > div > div > div {
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+}
+
+.interac-container > div > div > div > div > div select {
+  font-family: monospace !important;
+}
+
+.interac-container > div > div > div > div > div select:hover {
+  background-color: #b5d6ea;
+}
+
+.interac-buttons .selector-label:hover {
+  background-color: transparent;
+}
+
+.interac-container select {
+  border: 1px solid #b5d6ea;
+  border-radius: 5px;
+  text-align: center;
+}
+
+.correlation-container {
+  margin: 20px;
+}
+
+.missing-container {
+  margin: 20px;
+}
+
+.no-render-title {
+  font-family: monospace;
+  text-align: center;
+  color: darkgray;
+  font-weight: 100;
+}
+
+.error-message {
+  padding: 15px;
+  border: 1px solid crimson;
+}
+
+.error-message p {
+  text-align: center !important;
+  color: crimson !important;
+  font-family: monospace !important;
+  margin: unset !important;
+}
+
+.corr-tabcontent {
+  display: none;
+  padding: 6px 12px;
+}
+
+.missing-tabcontent {
+  border-top: none;
+  display: none;
+}
+
+@media screen and (max-width: 1320px) {
+  h1.tb-title {
+    max-width: 850px;
+  }
+  h2.tb-title {
+    max-width: 120px;
+  }
+  .section {
+    max-width: 975px;
+  }
+  .var-container > .var-title {
+    flex: 2 1 10%;
+  }
+  .var-container > .tb-container {
+    flex: 2 1 400px;
+  }
+  .var-toggle {
+    width: 100px;
+  }
+  .vp-plot-categorical {
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+  }
+  .vp-plot-categorical > div {
+    flex: 0 1 35%;
+  }
+  .col-name {
+    max-width: 50px;
+  }
+}
+
+@media screen and (max-width: 425px) {
+  .navbar-top a {
+    padding: 5px 5px;
+    font-size: 15px;
+  }
+  .container-main {
+    margin-top: 80px;
+  }
+  .rp-table {
+    font-size: 10px;
+  }
+  h1.tb-title {
+    width: 100%;
+    text-align: center;
+  }
+  h2.tb-title {
+    max-width: unset;
+    overflow: unset;
+    white-space: unset;
+    text-overflow: unset;
+  }
+  h3.tb-title {
+    font-size: 15px;
+  }
+  h4.tb-title {
+    font-size: 13px;
+  }
+  .section {
+    width: 100%;
+    margin-left: 0;
+    margin-right: 0;
+  }
+  .section-variable p {
+    margin-left: auto;
+  }
+  .var-container {
+    display: block;
+  }
+  .var-title {
+    position: static;
+    top: auto;
+    text-align: center;
+  }
+  .var-ovplot {
+    margin-left: 10%;
+  }
+  .var-toggle {
+    font-size: 10px;
+    padding: 4px 5px;
+  }
+  .vp-switch {
+    font-size: 10px;
+  }
+  .vp-switch label {
+    width: 80px;
+    padding: 3px 0;
+  }
+  .vp-table {
+    margin: auto;
+  }
+  .vp-plot-numerical {
+    flex-direction: column;
+  }
+  .vp-plot-categorical {
+    flex-direction: column;
+  }
+  .missing-container {
+    display: block;
+  }
+  .no-render-title {
+    font-size: 18px;
+  }
+  .ov-container {
+    flex-flow: column nowrap;
+  }
+  .page-box table td {
+    display: none;
+  }
+  .col-name {
+    max-width: 100px;
+  }
+}
+
+/*new styles*/
+
+/* Table styles. */
+
+table td,
+table th,
+.page-box table th {
+  border-bottom: 1px solid #cccccc;
+  text-align: left;
+  padding: 0.5em 0.5em !important;
+  padding: 12px 8px !important;
+  vertical-align: middle;
+  border-color: #ddd;
+  font-size: 16px;
+}
+
+.card {
+  border: 0;
+  margin-bottom: 30px;
+  margin-top: 30px;
+  border-radius: 6px;
+  color: #333;
+  background: #fff;
+  width: 100%;
+  box-shadow: 0 1px 4px 0 rgb(0 0 0 / 14%);
+}
+
+h3.tb-title {
+  text-align: center;
+  border-radius: 3px;
+  padding: 15px;
+  margin: 0 15px;
+  position: relative;
+  color: #000;
+}
+
+.ov-container .tb-container {
+  flex: 1 1 50%;
+  padding: 0.9375rem 20px;
+  position: relative;
+  background: #ffffff;
+  margin: 0px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.table_parent_pagination {
+  flex: 1 auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.parent_block_card {
+  padding: 30px;
+  background: #e2e2e2;
+  grid-gap: 30px;
+}
+
+.container {
+  padding: 30px 0;
+}
+
+table tr {
+  /* display: none; */
+}
+
+.maxRows {
+  display: none;
+}
+
+.pager-nav {
+  margin: 16px 0;
+  display: flex;
+  justify-content: end;
+}
+
+.pager-nav span {
+  display: inline-block;
+  padding: 4px 8px;
+  margin: 1px;
+  cursor: pointer;
+  font-size: 14px;
+  background-color: #ffffff;
+  border: 1px solid #9e9e9e;
+  border-radius: 5px;
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.04);
+}
+
+select#dropdown_datatype {
+  padding: 8px 16px;
+  height: auto;
+  font-size: 24px;
+  text-align: center;
+  cursor: pointer;
+  color: #000;
+  margin-bottom: 24px;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  position: relative;
+  background-image: url(https://cdn1.iconfinder.com/data/icons/cc_mono_icon_set/blacks/16x16/br_down.png);
+  background-repeat: no-repeat;
+  background-position: center right 20px;
+}
+
+select::-ms-expand {
+  display: none;
+}
+
+.pager-nav span:hover,
+.pager-nav .pg-selected {
+  background-color: #5dade2;
+  border: 1px solid #9e9e9e;
+  color: #ffffff;
+}
+
+.nav-tabs > li .dropdown-menu > li > a {
+  display: block;
+  padding: 10px 20px;
+  clear: both;
+  font-weight: 400;
+  line-height: 1.42857143;
+  color: #333;
+  white-space: nowrap;
+}
+
+.nav-tabs > li.active > a,
+.nav-tabs > li.active > a:focus,
+.nav-tabs > li.active > a:hover {
+  background: #eeeeee;
+  cursor: pointer;
+}
+
+.table_parent {
+  width: 100%;
+  min-height: 300px;
+  flex: 1 auto;
+}
+
+[id^="categorical_"]:not("#categorical_continuous") {
+  display: none;
+}
+
+h3.tb-title[data-vis],
+.table_parent[data-id] {
+  display: none;
+}
+
+#categorical section.section > .heading_class {
+  justify-content: center;
+  margin: 0px !important;
+}
+
+div#piechart_2,
+div#barchart,
+div#piechart {
+  width: 500px;
+  height: 500px;
+  overflow: hidden;
+}
+
+div#piechart_2 svg,
+div#piechart svg {
+  transform: scale(1.25);
+}
+
+div#barchart svg {
+  transform: scale(1.15);
+}
+
+.nav-tabs > li a {
+  font-size: 20px;
+}
+
+ul.dropdown-menu {
+  width: 100%;
+}
+
+#categorical section.section > .heading_class > .heading_class select {
+  padding: 8px 15px;
+  height: auto;
+  font-size: 20px;
+  font-weight: 100;
+  cursor: pointer;
+  color: #000;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  position: relative;
+  background-image: url(https://cdn1.iconfinder.com/data/icons/cc_mono_icon_set/blacks/16x16/br_down.png);
+  background-repeat: no-repeat;
+  background-position: center right 20px;
+  text-align: left;
+}
+
+div[data-id] {
+  display: none;
+}
+
+.heading_class {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 30px;
+}
+
+.heading_class select {
+  width: 200px;
+  font-size: 16px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+section.section {
+  background: #e2e2e2;
+  margin-bottom: 10px !important;
+}
+
+    </style>
+
+
+
+<script>
+  google.charts.load("current", { packages: ["corechart"] });
+
+  // Data Type Breakdown
+  google.charts.setOnLoadCallback(drawChart_databrakdown);
+  function drawChart_databrakdown() 
+  {
+    var data = google.visualization.arrayToDataTable({{ pie_1 }});
+
+    var options = 
+    {
+      pieHole: 0.4,
+      width: "500",
+      height: "500",
+    };
+
+    var chart = new google.visualization.PieChart(
+    document.getElementById("piechart")
+    );
+
+    chart.draw(data, options);
+  }
+
+// Categorical Pie Chart
+{% for feature in charts_out_cat %}
+  {% for key, value in feature.items() %}
+    google.charts.setOnLoadCallback(drawChart_pie_{{key}});
+      function drawChart_pie_{{key}}() 
+        {
+          var data = google.visualization.arrayToDataTable({{value}});
+
+          var options = 
+          {
+            pieHole: 0.4,
+            width: "500",
+            height: "500",
+          };
+
+          var chart = new google.visualization.PieChart(
+          document.getElementById("piechart_{{key}}"));
+
+          chart.draw(data, options);
+        }
+
+// Categorical Bar Chart
+    google.charts.setOnLoadCallback(drawChart_bar_{{key}});
+      function drawChart_bar_{{key}}() 
+        {
+          var data = google.visualization.arrayToDataTable({{value}});
+
+          // var view = new google.visualization.DataView(data);
+          // view.setColumns([
+          //     0,
+          //     1,
+          //     { calc: "stringify", sourceColumn: 1, type: "string", role: "annotation" },
+          //     2,]);
+
+          var options = 
+          {
+            title: "{{key}}",
+            width: 500,
+            height: 500,
+            bar: { groupWidth: "100%" },
+            legend: { position: "none" },
+          };
+          
+          var chart = new google.visualization.BarChart(
+          document.getElementById("barchart_{{key}}")
+          );
+          chart.draw(data, options);
+        }
+
+{% endfor %}
+{% endfor %}
+
+// Continuous BoxPlot
+{% for feature in charts_out_con %}
+{% for key, value in feature.items() %}
+google.charts.setOnLoadCallback(drawChart_box_{{key}});
+function drawChart_box_{{key}}() 
+{
+// var y0 = [];
+// for (var i = 0; i < 50; i++) {
+//     y0[i] = Math.random();
+// }
+
+var trace1 = 
+{
+y: {{value}},
+type: "box",
+};
+
+var layout = 
+{
+title: 'Box Plot',
+width: 500,
+height: 500,
+showlegend: false
+};
+
+var data = [trace1];
+
+Plotly.newPlot(document.getElementById("boxplot_{{key}}"), data, layout);
+}
+
+// Continuous Histogram
+google.charts.setOnLoadCallback(drawChart_hist_{{key}});
+function drawChart_hist_{{key}}() 
+{
+var trace = 
+{
+x: {{value}},
+type: 'histogram',
+};
+var data = [trace];
+var layout = 
+{
+title: 'Histogram',
+width: 500,
+height: 500,
+showlegend: false
+};
+Plotly.newPlot(document.getElementById("histogram_{{key}}"), data, layout);
+
+// var view = new google.visualization.DataView(data);
+// view.setColumns([
+//     0,
+//     1,
+//     { calc: "stringify", sourceColumn: 1, type: "string", role: "annotation" },
+//     2,]);
+}
+
+{% endfor %}
+{% endfor %}
+
+
+
+// Target Piechart
+google.charts.setOnLoadCallback(drawChart_pie_{{target}});
+function drawChart_pie_{{target}}() 
+{
+    var data = google.visualization.arrayToDataTable({{target_chart_cat}});
+
+    var options = 
+    {
+    pieHole: 0.4,
+    width: "500",
+    height: "500",
+    };
+
+    var chart = new google.visualization.PieChart(
+    document.getElementById("piechart_{{target}}"));
+
+    chart.draw(data, options);
+}
+
+// Target Bar Chart
+google.charts.setOnLoadCallback(drawChart_bar_{{target}});
+function drawChart_bar_{{target}}() 
+{
+    var data = google.visualization.arrayToDataTable({{target_chart_cat}});
+
+    // var view = new google.visualization.DataView(data);
+    // view.setColumns([
+    //     0,
+    //     1,
+    //     { calc: "stringify", sourceColumn: 1, type: "string", role: "annotation" },
+    //     2,]);
+
+    var options = 
+    {
+    width: 500,
+    height: 500,
+    bar: { groupWidth: "100%" },
+    legend: { position: "none" },
+    };
+
+    var chart = new google.visualization.BarChart(
+    document.getElementById("barchart_{{target}}")
+    );
+    chart.draw(data, options);
+
+}
+
+// Target vs Categorical
+
+{% for key, value in target_grouped.items() %}
+google.charts.setOnLoadCallback(drawChart_grouped_{{key}});
+
+function drawChart_grouped_{{key}}() {
+    const data1 = []
+    {% for key1, value1 in value.items() %}
+    var trace{{loop.index}} = {
+        x: {{value1['x']}},
+        y: {{value1['y']}},
+        name: '{{key1}}',
+        type: 'bar'
+    }
+    data1.push(trace{{loop.index}})
+
+    {% endfor %}
+var data = data1
+
+var layout = {barmode: 'group'};
+
+Plotly.newPlot(document.getElementById('target_grouped_{{key}}'), data, layout);
+}
+{% endfor %}
+
+
+// Correlation Plot
+google.charts.setOnLoadCallback(drawChart_correlation);
+function drawChart_correlation() {
+var data = [{
+z: {{chart_correlation['values']}},
+x: {{chart_correlation['rows']}},
+y: {{chart_correlation['cols']}},
+type: "heatmap",
+hoverongaps: false,
+}, ];
+
+Plotly.newPlot(document.getElementById("correlation_plot"), data);
+}
+
+
+// google.charts.load("current", {packages:["corechart"]});
+google.charts.setOnLoadCallback(drawChart2);
+
+function drawChart2() {
+var data = google.visualization.arrayToDataTable([
+["Item_Identifier", "Count", { role: "style" }],
+["U-12", 12, "#b87333"],
+["U-1", 8, "silver"],
+["U-123", 7, "gold"],
+["U-6", 6, "color: #e5e4e2"],
+]);
+
+var view = new google.visualization.DataView(data);
+view.setColumns([
+0,
+1,
+{ calc: "stringify", sourceColumn: 1, type: "string", role: "annotation" },
+2,
+]);
+
+
+google.charts.setOnLoadCallback(drawChart2_2);
+
+function drawChart2_2() {
+var data = google.visualization.arrayToDataTable([
+    ["Type", "Hours per Day"],
+    ["Categorical", 4],
+    ["Continuous", 8],
+]);
+
+var options = {
+    title: "Data Type Breakdown",
+    pieHole: 0.4,
+    width: "500",
+    height: "500",
+};
+
+var chart = new google.visualization.PieChart(
+    document.getElementById("piechart_2")
+);
+
+chart.draw(data, options);
+}
+
+var options = {
+title: "Item_Identifier",
+width: 500,
+height: 500,
+bar: { groupWidth: "100%" },
+legend: { position: "none" },
+};
+var chart = new google.visualization.BarChart(
+document.getElementById("barchart")
+);
+chart.draw(view, options);
+}
+
+google.charts.setOnLoadCallback(drawChart3);
+
+function drawChart3() {
+var y0 = [];
+for (var i = 0; i < 50; i++) {
+y0[i] = Math.random();
+}
+
+var trace1 = {
+y: y0,
+type: "box",
+};
+
+var data = [trace1];
+
+Plotly.newPlot(document.getElementById("boxplot"), data);
+}
+
+google.charts.setOnLoadCallback(drawChart4);
+
+function drawChart4() {
+var data = google.visualization.arrayToDataTable([
+["Age", "Weight"],
+[8, 12],
+[4, 5.5],
+[11, 14],
+[4, 5],
+[3, 3.5],
+[6.5, 7],
+]);
+
+var options = {
+title: "Age vs. Weight comparison",
+hAxis: { title: "Age", minValue: 0, maxValue: 15 },
+vAxis: { title: "Weight", minValue: 0, maxValue: 15 },
+legend: "none",
+};
+
+var chart = new google.visualization.ScatterChart(
+document.getElementById("scatterplot")
+);
+
+chart.draw(data, options);
+}
+
+google.charts.setOnLoadCallback(drawChart5);
+
+function drawChart5() {
+var data = [{
+z: [
+    [1, 5, 30],
+    [20, 1, 60],
+    [30, 60, 1],
+],
+x: ["Morning", "Afternoon", "Evening"],
+y: ["Morning", "Afternoon", "Evening"],
+type: "heatmap",
+hoverongaps: false,
+}, ];
+
+Plotly.newPlot(document.getElementById("heatmap"), data);
+}
+
+
+
+google.charts.setOnLoadCallback(drawChart6);
+
+function drawChart6() {
+var data = google.visualization.arrayToDataTable([
+['Quarks', 'Leptons', 'Gauge Bosons', 'Scalar Bosons'],
+[2 / 3, -1, 0, 0],
+[2 / 3, -1, 0, null],
+[2 / 3, -1, 0, null],
+[-1 / 3, 0, 1, null],
+[-1 / 3, 0, -1, null],
+[-1 / 3, 0, null, null],
+[-1 / 3, 0, null, null]
+]);
+var options = {
+// title: 'Approximating Normal Distribution',
+legend: { position: 'none' },
+colors: ['#4285F4'],
+
+chartArea: { width: 405 },
+hAxis: {
+    ticks: [-1, -0.75, -0.5, -0.25, 0, 0.25, 0.5, 0.75, 1]
+},
+bar: { gap: 0 },
+
+histogram: {
+    bucketSize: 0.01,
+    maxNumBuckets: 400,
+    minValue: -1,
+    maxValue: 1
+}
+};
+var chart = new google.visualization.Histogram(
+document.getElementById("histogram"));
+chart.draw(data, options);
+}
+
+    </script>
+    
+    <title>Auto EDA</title>
+</head>
+
+<body>
+    <div class="container">
+
+        <!-- TAB BUTTON -->
+
+        <ul class="nav nav-tabs">
+            <li class="active"><a data-toggle="tab" href="#overview">Overview</a></li>
+            <li><a data-toggle="tab" href="#data_type">Data Type</a></li>
+            <li class="dropdown">
+                <a class="dropdown-toggle" data-toggle="dropdown" href="#">Feature Wise Analysis
+              <span class="caret"></span></a>
+                <ul class="dropdown-menu">
+                    <li><a href="#categorical" data-toggle="tab">Categorical</a></li>
+                    <li><a href="#continuous" data-toggle="tab">Continuous</a></li>
+                    <li><a href="#correlation" data-toggle="tab">Correlation Plot</a></li>
+                </ul>
+            </li>
+            <li class="dropdown">
+                <a class="dropdown-toggle" data-toggle="dropdown" href="#">Target Analysis
+              <span class="caret"></span></a>
+                <ul class="dropdown-menu">
+                    <li><a href="#target_overview" data-toggle="tab">Target Overview</a></li>
+                    <li><a href="#target_categorical" data-toggle="tab">Categorical VS Target</a></li>
+
+                </ul>
+            </li>
+        </ul>
+
+        <!-- Overview -->
+        <div class="tab-content">
+            <div id="overview" class="tab-pane fade in active">
+                <div class="heading_class">
+                    <h3>Overview</h3>
+                </div>
+                <section class="section">
+                    <div class="section-start">
+                        <div class="ov-container parent_block_card">
+                            <div class="tb-container card">
+                                <h3 class="tb-title">Dataset Statistics</h3>
+                                <div class="table_parent">
+                                    
+                                    <table class="rp-table">
+                                        {% for dict_item in dataset_statistics %}
+                                            {% for key, value in dict_item.items() %}
+                                            {% if key != 'Variable Types' %}
+                                        <tr>
+                                            
+                                            <th>{{key}}</th>
+                                            <td>{{value}}</td>
+
+                                        </tr>
+                                        {% else %}
+                                        <tr style="height: 62px">
+                                            <th>{{key}}</th>
+                                            <td style="padding: 0 0.5em">
+                                                <ul style="list-style: none; padding-left: 0; margin: 0">
+                                                    {% for key_1, value_1 in value.items()%}
+                                                    <li>{{key_1}}: {{value_1}}</li>
+                                                        {% endfor %}
+                                                </ul>
+                                            </td>
+                                        </tr> 
+                                        {% endif %}
+                                        {% endfor %}
+                                        {% endfor %}
+                                    </table>
+                                </div>
+                            </div>
+
+                            <div class="tb-container card">
+                                <h3 class="tb-title">Feature Details</h3>
+
+                                <div class="table_parent_pagination">
+                                    <div class="page-box">
+                                        <table class="rp-table" id="pager">
+                                            {% for dict_item in feature_details %}
+                                            {% for key, value in dict_item.items() %}
+                                            <tr>
+                                                <th id="des">
+                                                    <!-- <span class="col-name">Item_Weight</span>  -->
+                                                    {{key}}
+                                                </th>
+                                                <td><span class="ins-type">{{value}}</span></td>
+                                            </tr>
+                                            {% endfor %}
+                                        {% endfor %}
+                                            
+                                        </table>
+                                    </div>
+                                    <div id="pageNavPosition" class="pager-nav"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+
+
+            <!-- Data Type -->
+            <div id="data_type" class="tab-pane fade">
+                <div class="heading_class">
+                    <h3>Data Type</h3>
+                </div>
+                <section class="section" id="categoricals_continuous">
+                    <div class="section-start">
+                        <div class="ov-container parent_block_card">
+                            <div class="tb-container card">
+                                <select class="form-control input-sm" id='dropdown_datatype'>
+                                  <option value="continuous" selected>Continuous</option>
+                                  <option value="categorical">Categorical</option>
+                                  <option value="other">Others</option>
+                                </select>
+                                <div class="table_parent" data-id="continuous">
+
+                                    <table class="rp-table">
+                                        {% for feature in continuous %}
+                                        <tr>
+                                            <th>{{feature}}</th>
+                                        </tr>
+                                        {% endfor %}
+                                    </table>
+                                </div>
+                                <div class="table_parent" data-id="categorical">
+
+                                    <table class="rp-table">
+                                        {% for feature in categorical %}
+                                        <tr>
+                                            <th>{{feature}}</th>
+                                        </tr>
+                                        {% endfor %}
+                                    </table>
+                                </div>
+
+                                <div class="table_parent" data-id="other">
+
+                                    <table class="rp-table">
+                                        {% for feature in other %}
+                                        <tr>
+                                            <th>{{feature}}</th>
+                                        </tr>
+                                        {% endfor %}
+                                    </table>
+                                </div>
+                            </div>
+
+                            <div class="tb-container card">
+                                <h3 class="tb-title">Data Type Breakdown</h3>
+
+                                <div id="piechart"></div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+
+            <!-- Categorical -->
+            <div id="categorical" class="tab-pane fade">
+                <div class="heading_class">
+                </div>
+                <section class="section">
+                    <div class="heading_class dropdown_items_categorical">
+                        <h3 class="tb-title">Categorical</h3>
+                        <select class="form-control input-sm drop_down_feature_select" id='dropdown_items_categorical'>
+                            {% for feature in stats_cat %}
+                                {% for key, value in feature.items() %}
+                                    <option value='cat_{{key}}'>{{key}}</option>
+                                {% endfor %}
+                            {% endfor %}
+                        </select>
+                    </div>
+                    
+                                    
+                            {% for feature in stats_cat %}
+                                {% for key, value in feature.items() %}
+                        
+                                    <div class="section-start" data-view="cat_{{key}}">
+                                        <div class="ov-container parent_block_card">
+                                            <div class="tb-container card">
+                                                
+                                                <h3 class="tb-title">{{key}}</h3>
+                                                    <div class="table_parent">
+                                                        <table class="rp-table">
+                                                            {% for key_1, value_1 in value.items()%}
+                                                            {% if 'Top' not in key_1 %}
+                                                            <tr>
+                                                                <th>{{key_1}}</th>
+                                                                <td>{{value_1}}</td>
+                                                            </tr>
+                                                            {% else %}     
+                                                            <tr style="height: 62px">
+                                                                <th style="vertical-align: top">
+                                                                    {{key_1}}
+                                                                </th>
+                                                                <td style="padding: 0 0.5em">
+                                                                    <ul style="list-style: none; padding-left: 0; margin: 0">
+                                                                        {% for i in value_1 %}
+                                                                        <li>{{i}}</li>
+                                                                        {% endfor %}
+                                                                    </ul>
+                                                                </td>
+                                                            </tr>
+                                                            {% endif %}
+                                                            {% endfor %}
+                                                        </table>
+                                                    </div>
+                                            </div>
+
+                                            <div class="tb-container">
+                                                <div class="heading_class">
+                                                    <h3 class="tb-title" data-vis="categorical_barchart{{loop.index}}">Bar Chart</h3>
+                                                    <h3 class="tb-title" data-vis="categorical_piechart{{loop.index}}">Pie Chart</h3>
+                                                        <select class="form-control input-sm" id='dropdown_chart_cat{{loop.index}}'>
+                                                            <option value="piechart{{loop.index}}" selected>Pie Chart</option>
+                                                            <option value="barchart{{loop.index}}">Bar Chart</option>
+                                                        </select>
+                                                </div>
+
+                                                <div id="categorical_barchart{{loop.index}}">
+                                                    <div id="barchart_{{key}}" style="height: 500px"></div>
+                                                </div>
+
+                                                <div id="categorical_piechart{{loop.index}}">
+                                                    <div id="piechart_{{key}}" style="height: 500px"></div>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                {% endfor %}
+                            {% endfor %}
+
+                </section>
+            </div>
+
+            <!-- Continuous -->
+            <div id="continuous" class="tab-pane fade">
+                <div class="heading_class">
+                    <!-- <h3>Categorical</h3> -->
+                </div>
+                <section class="section">
+                    <div class="heading_class dropdown_items_continuous">
+                        <h3 class="tb-title">Continuous</h3>
+                        <select class="form-control input-sm drop_down_feature_select" id='dropdown_items_continuous'>
+                            {% for feature in continuous %}
+                          <!-- <option value="Item_Identifier" selected>Item_Identifier</option> -->
+                          <!-- <option value="data2">data2</option> -->
+                          <option value='con_{{feature}}'>{{feature}}</option>
+                          {% endfor %}
+                        </select>
+                    </div>
+                    
+                                    
+                            {% for feature in stats_con %}
+                                {% for key, value in feature.items() %}
+                        
+                                    <div class="section-start" data-view="con_{{key}}">
+                                        
+                                        <div class="ov-container parent_block_card">
+                                            <div class="tb-container card">
+                                                
+                                                <h3 class="tb-title">Descriptive</h3>
+                                                    <div class="table_parent">
+                                                        <table class="rp-table">
+                                                            {% for key_1, value_1 in value['Descriptive'].items()%}
+                                                            <tr>
+                                                                <th>{{key_1}}</th>
+                                                                <td>{{value_1}}</td>
+                                                            </tr>
+                                                            {% endfor %}
+
+                                                        
+                                                        </table>
+                                                    </div>
+                                            </div>
+
+                                            <div class="tb-container card">
+                                                
+                                                <h3 class="tb-title">Quantile</h3>
+                                                    <div class="table_parent">
+                                                        <table class="rp-table">
+                                                            {% for key_1, value_1 in value['Quantile'].items()%}
+                                                            <tr>
+                                                                <th>{{key_1}}</th>
+                                                                <td>{{value_1}}</td>
+                                                            </tr>
+                                                            {% endfor %}
+                                                        </table>
+                                                    </div>
+                                            </div>
+
+                                            <div class="tb-container">
+                                                <div class="heading_class">
+                                                    <h3 class="tb-title" data-vis="continuous_boxplot{{loop.index}}">Boxplot</h3>
+                                                    <h3 class="tb-title" data-vis="continuous_histogram{{loop.index}}">Histogram</h3>
+                                                    <h3 class="tb-title" data-vis="continuous_qqplot{{loop.index}}">QQ-Plot</h3>
+                                                        <select class="form-control input-sm" id='dropdown_chart_con{{loop.index}}'>
+                                                            <option value="boxplot{{loop.index}}" selected>Boxplot</option>
+                                                            <option value="histogram{{loop.index}}">Histogram</option>
+                                                            <option value="qqplot{{loop.index}}">QQ-Plot</option>
+                                                        </select>
+                                                </div>
+
+                                                <div id="continuous_boxplot{{loop.index}}">
+                                                    <div id="boxplot_{{key}}" style="height: 500px"></div>
+                                                </div>
+
+                                                <div id="continuous_histogram{{loop.index}}">
+                                                    <div id="histogram_{{key}}" style="height: 500px"></div>
+                                                </div>
+
+                                                <div id="continuous_qqplot{{loop.index}}">
+                                                    <img src=qqplot_{{key}}.jpg id="qqplot_{{key}}" alt="" height="100%" width="100%"> </img>
+                                                    <!-- <div id="qqplot_{{key}}" style="height: 500px"></div> -->
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                {% endfor %}
+                            {% endfor %}
+                </section>
+            </div>
+
+            <div id="correlation" class="tab-pane fade">
+                <div class="heading_class">
+                    <!-- <h3>Correlation Plot</h3> -->
+                </div>
+                <section class="section">
+                    <div class="heading_class dropdown_items_continuous">
+                        <h3 class="tb-title">Correlation Plot</h3>
+                    </div>
+                                     
+                                    <div class="section-start">                                        
+                                        <div class="ov-container parent_block_card">
+                                            <div class="tb-container">
+                                                <div class="heading_class">
+                                                    <!-- <h3 class="tb-title">Correlation</h3> -->
+                                                </div>
+
+                                                <div id="correlation_plot1">
+                                                    <div id="correlation_plot" style="height: 500px"></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                </section>
+            </div>
+
+
+            <div id="target_overview" class="tab-pane fade">
+                <div class="heading_class">
+                    <!-- <h3>Categorical</h3> -->
+                </div>
+                <section class="section">
+                    <div class="heading_class">
+                        <h3 class="tb-title">Target - {{target}}</h3>
+                    </div>
+                    
+                                    <div class="section-start">
+                                        
+                                        <div class="ov-container parent_block_card">
+                                            <div class="tb-container card">
+                                                
+                                                <h3 class="tb-title">Descriptive</h3>
+                                                    <div class="table_parent">
+                                                        <table class="rp-table">
+                                                            {% for feature in stats_target_cat %}
+                                                            {% for key_1, value_1 in feature['Descriptive'].items()%}
+                                                            <tr>
+                                                                <th>{{key_1}}</th>
+                                                                <td>{{value_1}}</td>
+                                                            </tr>
+                                                            {% endfor %}
+                                                            {% endfor %}
+                                                        
+                                                        </table>
+                                                    </div>
+                                            </div>
+
+                                            <div class="tb-container card">
+                                                
+                                                <h3 class="tb-title">List of Categories</h3>
+                                                    <div class="table_parent">
+                                                        <table class="rp-table">
+                                                            {% for feature in stats_target_cat %}
+                                                            {% for key_2, value_2 in feature['target_lof'].items()%}
+                                                            <tr>
+                                                                <th>{{key_2}}</th>
+                                                                <td>{{value_2}}</td>
+                                                            </tr>
+                                                            {% endfor %}
+                                                            {% endfor %}
+
+                                                        </table>
+                                                    </div>
+                                            </div>
+
+                                            <div class="tb-container">
+                                                <div class="heading_class">
+                                                    
+                                                            <h3 class="tb-title" data-vis="target_piechart1">Piechart</h3>
+                                                            <h3 class="tb-title" data-vis="target_barchart1">Bar Chart</h3>
+                                                                <select class="form-control input-sm" id='dropdown_chart_target1'>
+                                                                    <option value="piechart1" selected>Piechart</option>
+                                                                    <option value="barchart">Bar Chart</option>
+                                                                </select>
+                                                        </div>
+        
+                                                        <div id="target_piechart1">
+                                                            <div id="piechart_{{target}}" style="height: 500px"></div>
+                                                        </div>
+        
+                                                        <div id="target_barchart1">
+                                                            <div id="barchart_{{target}}" style="height: 500px"></div>
+                                                        </div>
+                                                </div>
+                                            </div>
+                                    </div>
+                </section>
+            </div>
+
+            <div id="target_categorical" class="tab-pane fade">
+                <div class="heading_class">
+                    <!-- <h3>Categorical</h3> -->
+                </div>
+                <section class="section">
+                    <div class="heading_class dropdown_items_categoricalvstarget">
+                        <h3 class="tb-title">Categorical VS Target</h3>
+                        <!-- <select class="form-control input-sm drop_down_feature_select" id='dropdown_items_categorical'>
+                            {% for feature in categroical %}
+                                <option value='cat_{{feature}}'>{{feature}}</option>
+                            {% endfor %}
+                        </select> -->
+                    </div>
+                    
+                                    <div class="section-start">
+                                        <div class="ov-container parent_block_card">
+                                            <div class="tb-container card">
+                                                
+                                                <h3 class="tb-title">Chi-Square Test</h3>
+                                                    <div class="table_parent">
+                                                        <table class="rp-table">
+                                                            <tr>
+                                                                <th><b>Feature</b></th>
+                                                                <td><b>P-Value</b></td>
+                                                            </tr>
+                                                            {% for feature in chi_target %}
+                                                            {% for key, value in feature.items()%}
+                                                            <tr>
+                                                                <th>{{key}}</th>
+                                                                <td>{{value}}</td>
+                                                            </tr>
+                                                            {% endfor %}
+                                                            {% endfor %}
+                                                        
+                                                        </table>
+                                                    </div>
+                                            </div>
+                                            <div class="tb-container">
+                                                <div class="heading_class">
+                                                        {% for key,value in target_grouped.items() %}
+                                                            <h3 class="tb-title" data-vis="target_grouped{{key}}">{{key}}</h3>
+                                                        {% endfor %}
+                                                        <select class="form-control input-sm" data-grouped="grouped_plot" id='dropdown_chart_target_grouped'>
+                                                            {% for key,value in target_grouped.items() %}
+                                                            <option value="target_grouped{{key}}" selected>{{key}}</option>
+                                                            {% endfor %}
+
+                                                        </select>
+                                                </div>
+                                                {% for key,value in target_grouped.items() %}
+                                                <div id="target_grouped{{key}}">
+                                                    <div id="target_grouped_{{key}}" style="height: 500px"></div>
+                                                </div>
+                                                {% endfor %}
+
+                                            </div>
+                                        </div>
+                                    </div>
+                </section>
+            </div>
+
+
+        </div>
+    </div>
+
+
+
+    <div class="form-group" style="display: none;">
+        <!--		Show Numbers Of Rows 		-->
+        <select class="form-control maxRows" name="state" id="maxRows">
+        <option value="5000">Show ALL Rows</option>
+        <option value="5">5</option>
+      </select>
+
+    </div>
+
+
+    <script>
+
+$(
+  '[id^=categorical_barchart],[data-vis^="categorical_barchart"],[data-view],[data-vis],[id^=continuous_],[id^=target_barchart],[id^="target_grouped"],[data-vis^="target_grouped"]'
+).hide();
+$(
+  '[id^=categorical_piechart],[data-id="continuous"],[data-vis^="categorical_piechart"]'
+).show();
+
+// $(document).ready(function(){
+arr = $(".drop_down_feature_select").map(function () {
+  return this.id;
+});
+
+for (i = 0; i < arr.length; i++) {
+  //   alert(arr[i]);
+  var selectedValue = $("#" + arr[i]).val();
+  $('[data-view="' + selectedValue + '"]').show();
+}
+
+$(document).ready(function () {
+  arr2 = $('[id^="dropdown_chart_con"]').map(function () {
+    return $(this).val();
+  });
+
+  for (i = 0; i < arr2.length; i++) {
+    //console.log('continuous_' + arr2[i]);
+
+    $('[data-vis="continuous_' + arr2[i] + '"],#continuous_' + arr2[i]).show();
+  }
+
+  arr3 = $('[id^="dropdown_chart_target"]').map(function () {
+    return $(this).val();
+  });
+
+  for (i = 0; i < arr3.length; i++) {
+    $('[data-vis="target_' + arr2[i] + '"],#target_' + arr2[i]).show();
+  }
+
+  var grouped = $('[id="dropdown_chart_target_grouped"]').val();
+  $('[id="' + grouped + '"],[data-vis="' + grouped + '"]').show();
+});
+
+$("[id^=dropdown_chart_cat]").on("change", function () {
+  var values = $(this).val();
+  var valuewofchart = values[values.length - 1];
+
+  if (values.includes("piechart")) {
+    $(
+      '[id^="categorical_barchart' +
+        valuewofchart +
+        '"],[data-vis^="categorical_barchart' +
+        valuewofchart +
+        '"]'
+    ).hide();
+  } else {
+    $(
+      '[id^="categorical_piechart' +
+        valuewofchart +
+        '"],[data-vis^="categorical_piechart' +
+        valuewofchart +
+        '"]'
+    ).hide();
+  }
+  $(
+    '[id^="categorical_' + values + '"],[data-vis="categorical_' + values + '"]'
+  ).show();
+});
+
+$("[id^=dropdown_chart_con]").on("change", function () {
+  var values = $(this).val();
+  var valuewofchart = values[values.length - 1];
+
+  if (values.includes("boxplot")) {
+    $(
+      '[id^="continuous_histogram' +
+        valuewofchart +
+        '"],[data-vis^="continuous_histogram' +
+        valuewofchart +
+        '"]'
+    ).hide();
+  } else {
+    $(
+      '[id^="continuous_boxplot' +
+        valuewofchart +
+        '"],[data-vis^="continuous_boxplot' +
+        valuewofchart +
+        '"]'
+    ).hide();
+  }
+  $(
+    '[id^="continuous_' + values + '"],[data-vis="continuous_' + values + '"]'
+  ).show();
+});
+
+$("[id^=dropdown_chart_target]").on("change", function () {
+  var values = $(this).val();
+  var valuewofchart = values[values.length - 1];
+
+  if (values.includes("piechart")) {
+    $(
+      '[id^="target_barchart' +
+        valuewofchart +
+        '"],[data-vis^="target_barchart' +
+        valuewofchart +
+        '"]'
+    ).hide();
+  } else {
+    $(
+      '[id^="target_piechart' +
+        valuewofchart +
+        '"],[data-vis^="target_piechart' +
+        valuewofchart +
+        '"]'
+    ).hide();
+  }
+  $('[id^="target_' + values + '"],[data-vis="target_' + values + '"]').show();
+});
+
+$("[id^=dropdown_chart_target_grouped]").on("change", function () {
+  var values = $(this).val();
+  $('[id^="target_grouped"],[data-vis^="target_grouped"]').hide();
+//   console.log('[id="target_scatter'+values+'"],[data-vis="target_scatter'+values+'"]');
+//   console.log(values);
+  $('[id="' + values + '"],[data-vis="' + values + '"]').show();
+});
+
+$("#dropdown_datatype").on("change", function () {
+  $("[data-id]").hide();
+  $('[data-id="' + this.value + '"]').show();
+});
+$("#dropdown_items_categorical, #dropdown_items_continuous").on(
+  "change",
+  function () {
+    let myString = $(this).attr("id");
+
+    myString = myString.replace("#", "");
+
+    $("." + myString + "~ [data-view]").hide();
+
+    $("." + myString + '~ [data-view="' + this.value + '"]').show();
+  }
+);
+
+function Pager(tableName, itemsPerPage) {
+  "use strict";
+
+  this.tableName = tableName;
+  this.itemsPerPage = itemsPerPage;
+  this.currentPage = 1;
+  this.pages = 0;
+  this.inited = false;
+
+  this.showRecords = function (from, to) {
+    let rows = document.getElementById(tableName).rows;
+
+    // i starts from 1 to skip table header row
+    for (let i = 1; i < rows.length; i++) {
+      if (i < from || i > to) {
+        rows[i].style.display = "none";
+      } else {
+        rows[i].style.display = "";
+      }
+    }
+  };
+
+  this.showPage = function (pageNumber) {
+    if (!this.inited) {
+      // Not initialized
+      return;
+    }
+
+    let oldPageAnchor = document.getElementById("pg" + this.currentPage);
+    oldPageAnchor.className = "pg-normal";
+
+    this.currentPage = pageNumber;
+    let newPageAnchor = document.getElementById("pg" + this.currentPage);
+    newPageAnchor.className = "pg-selected";
+
+    let from = (pageNumber - 1) * itemsPerPage + 1;
+    let to = from + itemsPerPage - 1;
+    this.showRecords(from, to);
+
+    let pgNext = document.querySelector(".pg-next"),
+      pgPrev = document.querySelector(".pg-prev");
+
+    if (this.currentPage == this.pages) {
+      pgNext.style.display = "none";
+    } else {
+      pgNext.style.display = "";
+    }
+
+    if (this.currentPage === 1) {
+      pgPrev.style.display = "none";
+    } else {
+      pgPrev.style.display = "";
+    }
+  };
+
+  this.prev = function () {
+    if (this.currentPage > 1) {
+      this.showPage(this.currentPage - 1);
+    }
+  };
+
+  this.next = function () {
+    if (this.currentPage < this.pages) {
+      this.showPage(this.currentPage + 1);
+    }
+  };
+
+  this.init = function () {
+    let rows = document.getElementById(tableName).rows;
+    let records = rows.length - 1;
+
+    this.pages = Math.ceil(records / itemsPerPage);
+    this.inited = true;
+  };
+
+  this.showPageNav = function (pagerName, positionId) {
+    if (!this.inited) {
+      // Not initialized
+      return;
+    }
+
+    let element = document.getElementById(positionId),
+      pagerHtml =
+        '<span onclick="' +
+        pagerName +
+        '.prev();" class="pg-normal pg-prev">&#171;</span>';
+
+    for (let page = 1; page <= this.pages; page++) {
+      pagerHtml +=
+        '<span id="pg' +
+        page +
+        '" class="pg-normal pg-next" onclick="' +
+        pagerName +
+        ".showPage(" +
+        page +
+        ');">' +
+        page +
+        "</span>";
+    }
+
+    pagerHtml +=
+      '<span onclick="' +
+      pagerName +
+      '.next();" class="pg-normal">&#187;</span>';
+
+    element.innerHTML = pagerHtml;
+  };
+}
+
+//
+let pager = new Pager("pager", 7);
+pager.init();
+pager.showPageNav("pager", "pageNavPosition");
+pager.showPage(1);
+
+    </script>
+</body>
+
+</html>
