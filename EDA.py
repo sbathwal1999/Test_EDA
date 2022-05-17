@@ -63,7 +63,7 @@ class EDA:
                                       charts_out_con =  [self.charts_out_con()],
                                       target = self.TargetFeature,
                                       stats_target_con = [self.stats_target_con()],
-                                      target_chart = self.target_chart_con(),
+                                      target_chart_con = self.target_chart_con(),
                                       corr_target = [self.corr_target()],
                                       scatter_chart =  self.scatter_chart(),
                                       chart_correlation = self.chart_correlation(),
